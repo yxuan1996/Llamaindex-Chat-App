@@ -1,0 +1,74 @@
+.hidden {
+    display: none !important;
+}
+
+/* Ensure chat container takes full height */
+#chat-container {
+    height: 100vh;
+    display: flex;
+}
+
+/* Make messages scrollable */
+#messages-container {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+/* Sidebar styling */
+#sidebar {
+    overflow-y: auto;
+}
+
+/* Thread item hover effect */
+.thread-item:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.thread-item.active {
+    background-color: rgba(99, 102, 241, 0.1);
+    border-left: 3px solid rgb(99, 102, 241);
+}
+
+/* Custom scrollbar */
+#messages-container::-webkit-scrollbar,
+#sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+#messages-container::-webkit-scrollbar-track,
+#sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#messages-container::-webkit-scrollbar-thumb,
+#sidebar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+/* Loading animation for AI message */
+.typing-indicator {
+    display: inline-block;
+}
+
+.typing-indicator span {
+    animation: blink 1.4s infinite;
+    animation-fill-mode: both;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0%, 80%, 100% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+}
