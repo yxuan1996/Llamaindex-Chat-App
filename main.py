@@ -166,27 +166,27 @@ async def login(email: str = Form(...), password: str = Form(...)):
         raise HTTPException(status_code=401, detail=f"Login failed: {str(e)}")
 
 
-@app.post("/api/auth/signup")
-async def signup(email: str = Form(...), password: str = Form(...)):
-    """
-    Signup endpoint - creates new user in Supabase
-    """
-    try:
-        response = supabase.auth.sign_up({
-            "email": email,
-            "password": password
-        })
+# @app.post("/api/auth/signup")
+# async def signup(email: str = Form(...), password: str = Form(...)):
+#     """
+#     Signup endpoint - creates new user in Supabase
+#     """
+#     try:
+#         response = supabase.auth.sign_up({
+#             "email": email,
+#             "password": password
+#         })
         
-        return {
-            "success": True,
-            "message": "Account created successfully",
-            "user": {
-                "id": response.user.id,
-                "email": response.user.email
-            }
-        }
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Signup failed: {str(e)}")
+#         return {
+#             "success": True,
+#             "message": "Account created successfully",
+#             "user": {
+#                 "id": response.user.id,
+#                 "email": response.user.email
+#             }
+#         }
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail=f"Signup failed: {str(e)}")
 
 
 @app.get("/api/threads")

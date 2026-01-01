@@ -53,6 +53,11 @@ AZURE_OPENAI_MODEL=gpt-4o
 AZURE_OPENAI_API_VERSION=2024-02-15-preview
 ```
 
+## Deployment
+My chat app is deployed using leapcell:
+
+https://lamaindex-hat-pp-yxuan19967120-eatkluiv.leapcell.dev
+
 
 
 ## Usage
