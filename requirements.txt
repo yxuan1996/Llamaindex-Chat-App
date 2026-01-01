@@ -4,6 +4,7 @@ python-dotenv
 supabase
 llama-index
 llama-index-llms-azure-openai
+psycopg[binary]
 llama-index-storage-chat-store-postgres
 jinja2
 python-multipart
