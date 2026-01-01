@@ -15,7 +15,6 @@
     <!-- Heroicons for icons -->
     <script src="https://unpkg.com/@heroicons/react@2.0.18/24/outline/index.js"></script>
     
-    <!-- <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}"> -->
      <style>
         .hidden {
             display: none !important;
@@ -252,7 +251,6 @@
         </div>
     </div>
 
-    <!-- <script src="{{ url_for('static', path='/script.js') }}"></script> -->
     <script>
         // Store authentication token and current thread
         let authToken = localStorage.getItem('authToken');
@@ -383,6 +381,7 @@
                     const isActive = thread === currentThread;
                     threadList.innerHTML += `
                         <div class="thread-item p-3 rounded-lg cursor-pointer ${isActive ? 'active' : ''}" 
+                                data-thread-id="${thread}"
                                 onclick="switchThread('${thread}')">
                             <div class="flex items-center justify-between">
                                 <div class="flex-1">
@@ -412,17 +411,47 @@
             ).join(' ');
         }
 
-        function switchThread(threadId) {
+        async function switchThread(threadId) {
             currentThread = threadId;
             document.getElementById('thread-id-input').value = threadId;
             document.getElementById('current-thread-name').textContent = formatThreadName(threadId);
-            document.getElementById('messages').innerHTML = '';
             
             // Update active state in sidebar
             document.querySelectorAll('.thread-item').forEach(item => {
                 item.classList.remove('active');
+                if (item.dataset.threadId === threadId) {
+                    item.classList.add('active');
+                }
             });
-            event.currentTarget.classList.add('active');
+            
+            // Load messages for this thread
+            await loadThreadMessages(threadId);
+        }
+
+        async function loadThreadMessages(threadId) {
+            try {
+                const response = await fetch(`/api/threads/${threadId}/messages`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + authToken
+                    }
+                });
+
+                const data = await response.json();
+                const messagesContainer = document.getElementById('messages');
+                
+                // Clear existing messages
+                messagesContainer.innerHTML = '';
+                
+                // Add loaded messages
+                if (data.messages && data.messages.length > 0) {
+                    data.messages.forEach(msgHtml => {
+                        messagesContainer.innerHTML += msgHtml;
+                    });
+                    scrollToBottom();
+                }
+            } catch (error) {
+                console.error('Failed to load thread messages:', error);
+            }
         }
 
         function createNewThread() {

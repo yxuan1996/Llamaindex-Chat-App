@@ -51,6 +51,9 @@ AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 AZURE_OPENAI_DEPLOYMENT=gpt-4o
 AZURE_OPENAI_MODEL=gpt-4o
 AZURE_OPENAI_API_VERSION=2024-02-15-preview
+
+# Postgres Connection String
+POSTGRES_CONNECTION_STRING=postgres_connection_string
 ```
 
 ## Deployment
